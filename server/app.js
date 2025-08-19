@@ -54,9 +54,10 @@ io.on("connection", (socket) => {
       // Deliver message to receiver if online
       if (onlineUsers.has(receiver)) {
         io.to(receiver).emit("message:new", { ...msg.toObject(), status: "delivered" });
-        await Message.findByIdAndUpdate(msg._id, { status: "delivered" });
+        msg=await Message.findByIdAndUpdate(msg._id, { status: "delivered" },{ new: true });
       }
-
+      // ✅ also notify sender that message is delivered
+      io.to(sender).emit("message:status", { msgId: msg._id, status: "delivered" });
       // Echo back to sender
       io.to(sender).emit("message:new", msg);
     } catch (err) {

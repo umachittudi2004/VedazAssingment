@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// Use your machine's IP if testing on a real device
-const API_URL = "https://d7c114d38da4.ngrok-free.app" || "http://localhost:5000"
+const API_URL = "https://6579bef6e77c.ngrok-free.app";
 
 const api = axios.create({ baseURL: API_URL });
 

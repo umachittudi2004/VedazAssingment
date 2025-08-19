@@ -3,6 +3,7 @@ import { View, Text, FlatList, RefreshControl, Button, StyleSheet } from "react-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api, { setAuthToken } from "../utils/api";
 import UserItem from "../components/UserItem";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { initSocket, getSocket } from "../utils/socket";
 
 export default function HomeScreen({ navigation }) {
@@ -71,6 +72,7 @@ export default function HomeScreen({ navigation }) {
   );
 
   return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fafafa" }}>
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Chats</Text>
@@ -84,6 +86,7 @@ export default function HomeScreen({ navigation }) {
         ListEmptyComponent={<Text style={styles.empty}>No users yet.</Text>}
       />
     </View>
+    </SafeAreaView>
   );
 }
 
