@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const SOCKET_URL = "https://6579bef6e77c.ngrok-free.app";
+const SOCKET_URL = "https://3761ac2877dc.ngrok-free.app";
 let socket;
 
 export const initSocket = (userId) => {

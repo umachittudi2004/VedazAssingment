@@ -19,7 +19,6 @@ export default function ChatScreen({ route }) {
       console.log("Fetched message history:", res.data);
 
       setMessages(res.data);
-      // mark unread as read
       const s = getSocket();
       res.data.forEach((m) => {
         if (String(m.receiver) === String(me) && m.status !== "read") {
@@ -40,7 +39,6 @@ export default function ChatScreen({ route }) {
       if (!isForThisChat) return;
 
       setMessages((prev) => {
-        // if server confirms optimistic message → replace it
         const optimistic = prev.find(
           (m) =>
             m.text === msg.text &&
@@ -52,13 +50,11 @@ export default function ChatScreen({ route }) {
           return prev.map((m) => (m._id === optimistic._id ? msg : m));
         }
 
-        // if already exists by id → skip
         if (prev.some((m) => String(m._id) === String(msg._id))) return prev;
 
         return [...prev, msg];
       });
 
-      // if I received it, immediately mark as read (when chat open)
       if (String(msg.receiver) === String(me)) {
         s.emit("message:read", msg._id);
       }
@@ -66,7 +62,6 @@ export default function ChatScreen({ route }) {
       listRef.current?.scrollToEnd({ animated: true });
     };
 
-    // ✅ new handler for read receipts
     const onRead = (messageId) => {
       setMessages((prev) =>
         prev.map((m) =>
@@ -100,7 +95,7 @@ export default function ChatScreen({ route }) {
     if (!trimmed) return;
     const s = getSocket();
     const optimistic = {
-      _id: `${Date.now()}`, // temp ID
+      _id: `${Date.now()}`,
       sender: me,
       receiver: contact._id,
       text: trimmed,

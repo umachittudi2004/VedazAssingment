@@ -21,10 +21,8 @@ export default function HomeScreen({ navigation }) {
     setAuthToken(token);
     setMe(userId);
     const s = initSocket(userId);
-    // live presence updates
     s.on("user:online", (id) => setUsers((prev) => prev.map(u => u._id === id ? { ...u, online: true } : u)));
     s.on("user:offline", (id) => setUsers((prev) => prev.map(u => u._id === id ? { ...u, online: false } : u)));
-    // optional: new message to update last message preview
     s.on("message:new", (msg) => {
       const peer = String(msg.sender) === String(userId) ? msg.receiver : msg.sender;
       setUsers((prev) => prev.map(u => u._id === String(peer) ? { ...u, lastMessage: msg } : u));
@@ -35,8 +33,8 @@ export default function HomeScreen({ navigation }) {
     try {
       const res = await api.get("/users");
       setUsers(res.data);
-    } catch {
-      // ignore
+    } catch (err) {
+      console.log("Failed to fetch users", err);
     }
   }, []);
 

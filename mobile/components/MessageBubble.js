@@ -12,7 +12,6 @@ const formatTime = (iso) => {
 
 const StatusTicks = ({ status, isMine }) => {
   if (!isMine) return null;
-  // sent: ✓, delivered: ✓✓, read: ✓✓ (bold/colored)
   const map = { sent: "✓", delivered: "✓✓", read: "✓✓" };
   const style = [styles.ticks, status === "read" && { color: "#22c55e", fontWeight: "700" }];
   return <Text style={style}>{map[status] || ""}</Text>;

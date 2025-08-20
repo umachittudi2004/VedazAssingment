@@ -4,9 +4,9 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// Send a message (fallback if socket not used)
+// Send a message
 router.post("/:id/messages", authMiddleware, async (req, res) => {
-  const { id } = req.params; // receiver
+  const { id } = req.params;
   const { text } = req.body;
 
   if (!text) return res.status(400).json({ error: "Message text is required" });

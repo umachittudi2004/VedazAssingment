@@ -4,7 +4,6 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// Get all users except self
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const users = await User.find(
