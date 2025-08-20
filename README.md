@@ -63,7 +63,7 @@ cd mobile
 npm start
 ```
 - Use Expo Go app on your phone or an emulator to run the app.
-
+- I used ngrok for connecting backend apis due to network and firewall issues if no problem go with localhost
 ---
 
 ## Environment Variables (Server)
@@ -96,7 +96,3 @@ You can register new users via the app. Example:
 - **Mobile:** React Native, Expo, React Navigation, Axios, Socket.IO client
 - **Server:** Node.js, Express, Socket.IO, MongoDB (Mongoose), JWT, bcrypt
 
----
-
-## License
-MIT
